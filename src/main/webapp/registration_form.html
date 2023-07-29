@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+
+        function post_new_user() {
+            let first_name = $("#firstname").val();
+            let last_name = $("#lastname").val();
+            let login = $("#login").val();
+            let mail = $("#mail").val();
+            let password = $("#password").val();
+
+
+            let url = "http://localhost:7777/exercise_app/registration?firstname=" + first_name + "&lastname=" + last_name + "&login=" + login + "&mail=" + mail +"&password=" + password
+            $.ajax({
+                type: "POST",
+                url: url,
+                success: function (data) {
+                    console.log(data)
+                },
+            });
+        }
+
+        function getData(){
+            let password = $('#password').val();
+            console.log(password)
+        }
+
+    </script>
+    <title>Noun's vocabulary</title>
+</head>
+    <body>
+    <br> Firstname </br>
+    <input type="text" id="firstname" size="15"/> <br> <br>
+    <br> Lastname: </br>
+    <input type="text" id="lastname" size="15"/> <br> <br>
+    <br> Login: </br>
+    <input type="text" id="login" size="15"/> <br> <br>
+    <br> Mail: </br>
+    <input type="text" id="mail" size="15"/> <br> <br>
+    <br> Password: </br>
+    <input type="text" id="password" size="15"/> <br> <br>
+
+    <button onclick="post_new_user()">Enter</button>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="http-equiv" content="Content-type: text/html;" charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+        function onload(){
+            let urlSearchParams = new URLSearchParams(window.location.search);
+            let id = urlSearchParams.get('id');
+            let url = "http://localhost:7777/exercise_app/exercise?request=" + id
+            $.get({
+                dataType: 'json',
+                url: url,
+                success: function (data){
+                    let title = data.title;
+                    let muscle_group = data.muscleGroup;
+
+                    $('#title').append(title)
+                    $('#muscle_group').append(muscle_group)
+                }
+            })
+        }
+
+    </script>
+</head>
+<body onload="onload()">
+<h1 id="title"></h1>
+<h2 id="muscle_group"></h2>
+</body>
+</html>

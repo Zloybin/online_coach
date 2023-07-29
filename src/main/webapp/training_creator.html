@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+        function getData() {
+            let url = "http://localhost:7777/exercise_app/exercise?request=all"
+            $.get({
+                dataType: "json",
+                url: url,
+                success: function (data) {
+                    create_exercises_table_from_JSON(data)
+                }
+            })
+        }
+
+        function create_exercises_table_from_JSON(list) {
+            for (let i = 0; i < list.length; i++) {
+                let listElement = list[i];
+                let table_row = "<tr><td style='padding: 3px; border: 1px solid ; text-align: center;'>" + listElement.id + "</td><td style='padding: 3px; border: 1px solid ; text-align: center;'>" + listElement.title + "</td><td style='padding: 3px; border: 1px solid ; text-align: center;'>" + listElement.muscleGroup + "</td></tr>"
+                let table_body = $("table tbody")
+                table_body.append(table_row)
+            }
+        }
+
+        function get_filtered_exercises() {
+            let muscle_group_filter = $('#muscle_group option:selected').val();
+            let url = "http://localhost:7777/exercise_app/exercise?request=filtered&muscle_group=" + muscle_group_filter
+            $.get({
+                dataType: "json",
+                url: url,
+                success: function (data) {
+                    let table_body = $("table tbody")
+                    table_body.empty()
+                    create_exercises_table_from_JSON(data)
+                }
+            })
+        }
+    </script>
+</head>
+<body onload="getData()">
+<div class="exercise_panel">
+    <div class="filter_panel">
+        <div class="search_option" id="muscle_group">
+            Muscle group:
+            <br>
+            <select>
+                <option value="LEGS">Legs</option>
+                <option value="BACK">Back</option>
+                <option value="CHEST">Chest</option>
+                <option value="SHOULDERS">Shoulders</option>
+                <option value="ARMS">Arms</option>
+            </select>
+        </div>
+        <div class="search_option">Muscle group:
+            <br>
+            <select>
+                <option>Legs</option>
+                <option>Back</option>
+                <option>Chest</option>
+                <option>Shoulders</option>
+                <option>Arms</option>
+            </select>
+        </div>
+        <button onclick="get_filtered_exercises()" class="search_option">Filter</button>
+    </div>
+    <div class="table">
+        <table style="border: 2px solid; border-collapse: collapse;">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Название упражнения</th>
+                <th>Группа мышц</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+.exercise_panel{
+    align-items:center;
+    border: 2px solid black;
+    width: 500px;
+    height: max-content;
+}
+.search_option{
+    align-items:center;
+    display: inline-block;
+    font-size: small;
+    width: 85px;
+    margin: 4px;
+}
+.filter_panel{
+    margin: 3px 2px 2px 3px;
+    border: 2px solid black;
+    display: block;
+    width: 490px;
+    height: auto;
+}

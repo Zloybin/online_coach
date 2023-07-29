@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+        function validate_insert_data(){
+            let login = $('#login').val();
+            let password = $('#password').val();
+
+            let url = "http://localhost:7777/exercise_app/registration?login=" + login + "&password=" + password
+            $.get({
+                url: url,
+                success: function (data){
+                    if (data.status == 'success'){
+                        window.location.href = ("http://localhost:7777/exercise_app/main_page.html")
+                    }else{
+                        let message = data.message;
+                        $('#error_information').append(message)
+
+                    }
+                }
+            })
+        }
+    </script>
+    <title>Title</title>
+</head>
+<body>
+<div style="align: center">
+    <br>
+    Login: <input type="text" id="login" size="15"/>
+    <br>
+    Password: <input type="text" id="password" size="15"/>
+    <br>
+    <button onclick="validate_insert_data()">Enter</button>
+    <br>
+</div>
+<div id="error_information"></div>
+</body>
+</html>

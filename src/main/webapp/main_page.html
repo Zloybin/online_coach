@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+        function on_load(){
+            let url = "http://localhost:7777/exercise_app/user_info"
+            $.get({
+                dataType: "json",
+                url: url,
+                success: function (data){
+                    get_info_from_DTO(data)
+                }
+            })
+        }
+
+        function get_info_from_DTO(dto){
+            let login = dto.login;
+            let greeting = "Hello, " + login + "!";
+            $("#greeting").append(greeting)
+
+        }
+    </script>
+</head>
+<body onload="on_load()" >
+<div id="greeting"></div>
+</body>
+</html>
