@@ -13,8 +13,7 @@ public enum MuscleGroup {
     LEGS("Ноги"),
     SHOULDERS("Плечи"),
     ARMS("Руки"),
-    ABS("Пресс"),
-    CALVES("Икры");
+    ABS("Пресс");
 
     private final String description;
 

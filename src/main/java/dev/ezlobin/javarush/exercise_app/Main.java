@@ -2,21 +2,16 @@ package dev.ezlobin.javarush.exercise_app;
 
 
 import dev.ezlobin.javarush.exercise_app.enums.Equipment;
+import dev.ezlobin.javarush.exercise_app.enums.Muscle;
 import dev.ezlobin.javarush.exercise_app.model.Exercise;
 import dev.ezlobin.javarush.exercise_app.spring.provider_config.SessionFactoryProvider;
 import dev.ezlobin.javarush.exercise_app.spring.provider_config.XMLPropertiesSessionFactoryProvider;
 import dev.ezlobin.javarush.exercise_app.spring.repository.ExerciseRepository;
-import dev.ezlobin.javarush.exercise_app.spring.repository.UserRepository;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.sql.*;
-import java.util.Set;
 
 
 public class Main {
@@ -68,10 +63,19 @@ public class Main {
         SessionFactoryProvider sessionFactoryProvider = new XMLPropertiesSessionFactoryProvider();
         SessionFactory sessionFactory = sessionFactoryProvider.getSessionFactory();
         ExerciseRepository exerciseRepository = new ExerciseRepository(sessionFactory);
-        Exercise exercise = exerciseRepository.getById(1L);
-        Set<Equipment> equipments = exercise.getEquipments();
-         for (Equipment equipment : equipments) {
-            System.out.println(equipment);
-        }
+        Exercise exercise = exerciseRepository.getById(4L);
+        System.out.println(exercise.toString());
+
+        /*try (Session session = sessionFactory.openSession()){
+            Transaction transaction = session.beginTransaction();
+            Exercise exercise = session.get(Exercise.class, 4L);
+            exercise.getEquipments().add(Equipment.DUMBBELL);
+            exercise.getEquipments().add(Equipment.BENCH);
+            exercise.getTargetMuscles().add(Muscle.UPPER_CHEST);
+            exercise.getAntagonistMuscles().add(Muscle.FRONT_DELTS);
+            transaction.commit();
+        }*/
+
+
     }
 }

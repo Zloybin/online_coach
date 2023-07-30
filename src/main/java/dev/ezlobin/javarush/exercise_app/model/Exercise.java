@@ -1,6 +1,7 @@
 package dev.ezlobin.javarush.exercise_app.model;
 
 import dev.ezlobin.javarush.exercise_app.enums.Equipment;
+import dev.ezlobin.javarush.exercise_app.enums.Muscle;
 import dev.ezlobin.javarush.exercise_app.enums.MuscleGroup;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,6 +31,27 @@ public class Exercise {
     @CollectionTable(name = "exercise_equipments", joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"))
     @Enumerated(EnumType.STRING)
     private Set<Equipment> equipments;
+
+    @Column
+    private String description;
+
+    @ElementCollection(targetClass = Muscle.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "exercise_target_muscle", joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"))
+    @Column(name = "target_muscle")
+    @Enumerated(EnumType.STRING)
+    private Set<Muscle> targetMuscles;
+
+    @ElementCollection(targetClass = Muscle.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "exercise_antagonist_muscle", joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"))
+    @Column(name = "antagonist_muscle")
+    @Enumerated(EnumType.STRING)
+    private Set<Muscle> antagonistMuscles;
+
+    @ElementCollection(targetClass = Muscle.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "exercise_sinergist_muscle", joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"))
+    @Column(name = "sinergist_muscle")
+    @Enumerated(EnumType.STRING)
+    private Set<Muscle> sinergistMuscles;
 
 
 }
