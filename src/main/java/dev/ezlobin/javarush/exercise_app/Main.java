@@ -1,6 +1,14 @@
 package dev.ezlobin.javarush.exercise_app;
 
 
+import dev.ezlobin.javarush.exercise_app.enums.Equipment;
+import dev.ezlobin.javarush.exercise_app.model.Exercise;
+import dev.ezlobin.javarush.exercise_app.spring.provider_config.SessionFactoryProvider;
+import dev.ezlobin.javarush.exercise_app.spring.provider_config.XMLPropertiesSessionFactoryProvider;
+import dev.ezlobin.javarush.exercise_app.spring.repository.ExerciseRepository;
+import dev.ezlobin.javarush.exercise_app.spring.repository.UserRepository;
+import org.hibernate.SessionFactory;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -8,6 +16,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.sql.*;
+import java.util.Set;
 
 
 public class Main {
@@ -43,7 +52,7 @@ public class Main {
             throw new RuntimeException(e);
         }*/
 
-        String url = "jdbc:postgresql://localhost:5432/test_db";
+        /*String url = "jdbc:postgresql://localhost:5432/test_db";
         String user = "ezlobin";
         String password = "Calambur26312!";
 
@@ -55,6 +64,14 @@ public class Main {
                     int id = resultSet.getInt("id");
                     System.out.println(id);
                 }
-            }
+            }*/
+        SessionFactoryProvider sessionFactoryProvider = new XMLPropertiesSessionFactoryProvider();
+        SessionFactory sessionFactory = sessionFactoryProvider.getSessionFactory();
+        ExerciseRepository exerciseRepository = new ExerciseRepository(sessionFactory);
+        Exercise exercise = exerciseRepository.getById(1L);
+        Set<Equipment> equipments = exercise.getEquipments();
+         for (Equipment equipment : equipments) {
+            System.out.println(equipment);
+        }
     }
 }
